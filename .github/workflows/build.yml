@@ -10,11 +10,13 @@ jobs:
     steps:
     - name: Baixar o Código
       uses: actions/checkout@v4
+      with:
+        lfs: true   # <---- OLHA A MÁGICA AQUI! ✨
     
     - name: Ligar o Motor Java
       uses: actions/setup-java@v4
       with:
-        java-version: '17'        # ← Aqui era 11, agora é 17!
+        java-version: '17'
         distribution: 'temurin'
         
     - name: Dar permissão pro Pedreiro
