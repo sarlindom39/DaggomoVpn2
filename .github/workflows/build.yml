@@ -26,6 +26,26 @@ jobs:
           find . -name "values-v35" -type d -exec rm -rf {} +
           echo "PASTA DESTRUIDA COM SUCESSO!"
           
+      - name: Forjar a Chave Secreta (EmbeddedValues)
+        run: |
+          DIR="app/src/main/java/com/psiphon3/psiphonlibrary"
+          mkdir -p $DIR
+          
+          # Se o desenvolvedor original deixou um molde (template), a gente usa:
+          if [ -f "$DIR/EmbeddedValues.java.template" ]; then
+            cp "$DIR/EmbeddedValues.java.template" "$DIR/EmbeddedValues.java"
+            echo "Molde encontrado e copiado! 🗝️"
+          else
+            # Se não, a gente cria um arquivo genérico na marra!
+            echo "Criando EmbeddedValues na marra! 🛠️"
+            cat <<EOF > "$DIR/EmbeddedValues.java"
+            package com.psiphon3.psiphonlibrary;
+            public class EmbeddedValues {
+                // Se faltar alguma variavel aqui, o compilador vai nos avisar!
+            }
+          EOF
+          fi
+          
       - name: Dar permissao pro Pedreiro
         run: chmod +x gradlew
         
