@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     namespace 'com.psiphon3'
-    compileSdk 33
+    compileSdk 35
 
     def versionPropsFile = rootProject.file('version.properties')
 
