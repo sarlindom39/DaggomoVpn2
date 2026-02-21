@@ -11,7 +11,8 @@ jobs:
     - name: Baixar o Código
       uses: actions/checkout@v4
       with:
-        lfs: true   # <---- OLHA A MÁGICA AQUI! ✨
+        lfs: true
+        submodules: recursive   # Puxa todas as pastas extras do Psiphon!
     
     - name: Ligar o Motor Java
       uses: actions/setup-java@v4
