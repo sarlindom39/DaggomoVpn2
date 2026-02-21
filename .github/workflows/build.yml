@@ -14,7 +14,7 @@ jobs:
     - name: Ligar o Motor Java
       uses: actions/setup-java@v4
       with:
-        java-version: '11'
+        java-version: '17'        # ← Aqui era 11, agora é 17!
         distribution: 'temurin'
         
     - name: Dar permissão pro Pedreiro
