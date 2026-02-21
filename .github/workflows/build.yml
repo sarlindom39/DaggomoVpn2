@@ -8,32 +8,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Baixar o Código
-      uses: actions/checkout@v4
-      with:
-        lfs: true
-        submodules: recursive
-    
-    - name: Ligar o Motor Java
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        
-    - name: ️ OPÇÃO NUCLEAR: Destruir o arquivo maldito!
-      run: |
-        echo "Procurando a pasta values-v35 em todo o projeto..."
-        find . -name "values-v35" -type d -exec rm -rf {} +
-        echo "PASTA DESTRUÍDA COM SUCESSO! O vilão está morto! 💀"
-        
-    - name: Dar permissão pro Pedreiro
-      run: chmod +x gradlew
+      - name: Baixar o Codigo
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: recursive
       
-    - name: Construir o APK! (Adeus Falta de RAM)
-      run: ./gradlew assembleDebug
-      
-    - name: Entregar o APK pra você baixar
-      uses: actions/upload-artifact@v4
-      with:
-        name: DaggomoVPN-APK
-        path: app/build/outputs/apk/debug/*.apk
+      - name: Ligar o Motor Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          
+      - name: Opcao Nuclear - Destruir a pasta v35
+        run: |
+          echo "Procurando a pasta values-v35 em todo o projeto..."
+          find . -name "values-v35" -type d -exec rm -rf {} +
+          echo "PASTA DESTRUIDA COM SUCESSO!"
+          
+      - name: Dar permissao pro Pedreiro
+        run: chmod +x gradlew
+        
+      - name: Construir o APK
+        run: ./gradlew assembleDebug
+        
+      - name: Entregar o APK pra baixar
+        uses: actions/upload-artifact@v4
+        with:
+          name: DaggomoVPN-APK
+          path: app/build/outputs/apk/debug/*.apk
