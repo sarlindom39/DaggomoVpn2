@@ -1,0 +1,30 @@
+name: Gerar Daggomo VPN
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Baixar o Código
+      uses: actions/checkout@v3
+    
+    - name: Ligar o Motor Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        
+    - name: Dar permissão pro Pedreiro
+      run: chmod +x gradlew
+      
+    - name: Construir o APK! (Adeus Falta de RAM)
+      run: ./gradlew assembleDebug
+      
+    - name: Entregar o APK pra você baixar
+      uses: actions/upload-artifact@v3
+      with:
+        name: DaggomoVPN-APK
+        path: app/build/outputs/apk/debug/*.apk
