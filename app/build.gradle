@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     namespace 'com.psiphon3'
-    compileSdk 34     
+    compileSdk 35     
 
     def versionPropsFile = rootProject.file('version.properties')
 
@@ -17,7 +17,7 @@ android {
                 applicationId "com.psiphon3"
                 resValue "string", "tray__authority", "${applicationId}.tray"
                 minSdkVersion 14
-                targetSdkVersion 33
+                targetSdkVersion 35
                 versionCode verCode
                 versionName verName
                 testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
