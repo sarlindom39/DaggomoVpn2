@@ -12,13 +12,19 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
-        submodules: recursive   # Puxa todas as pastas extras do Psiphon!
+        submodules: recursive
     
     - name: Ligar o Motor Java
       uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
+        
+    - name: ️ OPÇÃO NUCLEAR: Destruir o arquivo maldito!
+      run: |
+        echo "Procurando a pasta values-v35 em todo o projeto..."
+        find . -name "values-v35" -type d -exec rm -rf {} +
+        echo "PASTA DESTRUÍDA COM SUCESSO! O vilão está morto! 💀"
         
     - name: Dar permissão pro Pedreiro
       run: chmod +x gradlew
