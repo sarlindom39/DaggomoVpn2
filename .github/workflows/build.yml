@@ -32,19 +32,38 @@ jobs:
           mkdir -p $DIR
           cat <<EOF > "$DIR/EmbeddedValues.java"
           package com.psiphon3.psiphonlibrary;
-          import android.content.Context; // ← Adicionei isso pra ele parar de chorar!
+          import android.content.Context;
           
           public class EmbeddedValues {
-              // --- AS 4 COISAS NOVAS QUE ELE PEDIU AGORA ---
+              // --- AS 15 COISAS NOVAS (Chaves e Listas) ---
+              public static final String PROPAGATION_CHANNEL_ID = "0000000000000000";
+              public static final String[] EMBEDDED_SERVER_LIST = new String[0];
+              public static final String UPGRADE_URLS_JSON = "[]";
+              public static final String REMOTE_SERVER_LIST_URLS_JSON = "[]";
+              public static final String OBFUSCATED_SERVER_LIST_ROOT_URLS_JSON = "[]";
+              public static final String REMOTE_SERVER_LIST_SIGNATURE_PUBLIC_KEY = "";
+              public static final String SERVER_ENTRY_SIGNATURE_PUBLIC_KEY = "";
+              public static final String SERVER_ENTRY_EXCHANGE_OBFUSCATION_KEY = "";
+              public static final String FEEDBACK_DIAGNOSTIC_INFO_UPLOAD_URLS_JSON = "[]";
+              public static final String FEEDBACK_ENCRYPTION_PUBLIC_KEY = "";
+              public static final String ADDITIONAL_PARAMETERS = "{}";
+              public static final String INFO_LINK_URL = "https://daggomo.com/info";
+              public static final String UPGRADE_SIGNATURE_PUBLIC_KEY = "";
+              public static final String GET_NEW_VERSION_URL = "https://daggomo.com/download";
+              public static final String GET_NEW_VERSION_EMAIL = "get@daggomo.com";
+
+              public static boolean hasEverBeenSideLoaded(Context context) {
+                  return false; // Diz pro app que ele é original
+              }
+
+              // --- OS 4 BURACOS PREENCHIDOS ANTES ---
               public static final String FAQ_URL = "https://daggomo.com/faq";
               public static final String DATA_COLLECTION_INFO_URL = "https://daggomo.com/privacidade";
               public static final String CLIENT_VERSION = "1.0 Daggomo";
               
-              public static void initialize(Context context) {
-                  // O compilador só queria ver esse método existir! Não precisa fazer nada dentro!
-              }
+              public static void initialize(Context context) {}
 
-              // --- AS CHAVES DA VEZ PASSADA (Que deram certo!) ---
+              // --- AS PRIMEIRAS CHAVES DA PARTE 1 ---
               public static final boolean IS_PLAY_STORE_BUILD = false;
               public static final String[] HOME_TAB_URL_EXCLUSIONS = new String[0];
               public static final String FILE_BUG_EMAIL_ADDRESS = "suporte@daggomo.com";
@@ -74,7 +93,7 @@ jobs:
               public static final boolean DISABLE_TIMEOUTS = false;
           }
           EOF
-          echo "Super Chave Secreta Atualizada com Sucesso!"
+          echo "Super Chave Secreta V3 forjada com sucesso!"
           
       - name: Dar permissao pro Pedreiro
         run: chmod +x gradlew
