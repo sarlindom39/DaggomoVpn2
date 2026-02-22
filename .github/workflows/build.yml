@@ -51,7 +51,7 @@ jobs:
               public static final String SERVER_ENTRY_EXCHANGE_OBFUSCATION_KEY = "";
               public static final String FEEDBACK_DIAGNOSTIC_INFO_UPLOAD_URLS_JSON = "[]";
               public static final String FEEDBACK_ENCRYPTION_PUBLIC_KEY = "";
-              public static final String ADDITIONAL_PARAMETERS = "{}";
+              public static final String ADDITIONAL_PARAMETERS = "";
               public static final String INFO_LINK_URL = "https://daggomo.com/info";
               public static final String UPGRADE_SIGNATURE_PUBLIC_KEY = "";
               public static final String GET_NEW_VERSION_URL = "https://daggomo.com/download";
