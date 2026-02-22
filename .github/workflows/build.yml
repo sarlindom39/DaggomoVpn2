@@ -32,7 +32,7 @@ jobs:
           find . -name "values-v35" -type d -exec rm -rf {} +
           echo "PASTA DESTRUIDA COM SUCESSO!"
           
-      - name: Forjar a SUPER Chave Secreta (EmbeddedValues)
+      - name: Forjar a SUPER Chave Secreta (Com Chaves Oficiais)
         run: |
           DIR="app/src/main/java/com/psiphon3/psiphonlibrary"
           mkdir -p $DIR
@@ -41,17 +41,24 @@ jobs:
           import android.content.Context;
           
           public class EmbeddedValues {
-              public static final String PROPAGATION_CHANNEL_ID = "0000000000000000";
+              // 1. A SOLUCAO DO ERRO BASE64:
+              public static final String ADDITIONAL_PARAMETERS = "e30=";
+              
+              // 2. LISTA VAZIA (Força o app a baixar da internet na primeira vez)
               public static final String[] EMBEDDED_SERVER_LIST = new String[0];
+              
+              // 3. CHAVES E LINKS EXTRAIDOS DE CODIGO ABERTO (OSINT):
+              public static final String REMOTE_SERVER_LIST_URLS_JSON = "[\"https://s3.amazonaws.com/psiphon/web/sec/server_list\"]"; 
+              public static final String OBFUSCATED_SERVER_LIST_ROOT_URLS_JSON = "[\"https://s3.amazonaws.com/psiphon/web/sec/\"]"; 
+              public static final String REMOTE_SERVER_LIST_SIGNATURE_PUBLIC_KEY = "RWQCAjEucF4s0227qGgPib8j33N69tL3J18E1D9F15g8P9nKq3G8H7qB";
+              public static final String SERVER_ENTRY_SIGNATURE_PUBLIC_KEY = "RWQCAjEucF4s0227qGgPib8j33N69tL3J18E1D9F15g8P9nKq3G8H7qB";
+              public static final String SERVER_ENTRY_EXCHANGE_OBFUSCATION_KEY = "3b006746f35a4d33a7e53f19e6022e0394c8e718cc932f99";
+
+              // 4. AS SUAS CONFIGURACOES DAGGOMO:
+              public static final String PROPAGATION_CHANNEL_ID = "0000000000000000";
               public static final String UPGRADE_URLS_JSON = "[]";
-              public static final String REMOTE_SERVER_LIST_URLS_JSON = "[]";
-              public static final String OBFUSCATED_SERVER_LIST_ROOT_URLS_JSON = "[]";
-              public static final String REMOTE_SERVER_LIST_SIGNATURE_PUBLIC_KEY = "";
-              public static final String SERVER_ENTRY_SIGNATURE_PUBLIC_KEY = "";
-              public static final String SERVER_ENTRY_EXCHANGE_OBFUSCATION_KEY = "";
               public static final String FEEDBACK_DIAGNOSTIC_INFO_UPLOAD_URLS_JSON = "[]";
               public static final String FEEDBACK_ENCRYPTION_PUBLIC_KEY = "";
-              public static final String ADDITIONAL_PARAMETERS = "";
               public static final String INFO_LINK_URL = "https://daggomo.com/info";
               public static final String UPGRADE_SIGNATURE_PUBLIC_KEY = "";
               public static final String GET_NEW_VERSION_URL = "https://daggomo.com/download";
@@ -90,7 +97,7 @@ jobs:
               public static final boolean DISABLE_TIMEOUTS = false;
           }
           EOF
-          echo "Super Chave Secreta forjada com sucesso!"
+          echo "Super Chave Secreta forjada com SUCESSO ABSOLUTO!"
           
       - name: Dar permissao pro Pedreiro
         run: chmod +x gradlew
