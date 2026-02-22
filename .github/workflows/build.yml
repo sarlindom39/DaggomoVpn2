@@ -23,8 +23,9 @@ jobs:
       - name: Instalar biblioteca que o NDK 17 precisa
         run: |
           sudo apt-get update
-          sudo apt-get install -y libncurses5 libncurses5-dev
-          echo "Bibliotecas instaladas com sucesso!"
+          sudo apt-get install -y libncurses6
+          sudo ln -s /lib/x86_64-linux-gnu/libncurses.so.6 /lib/x86_64-linux-gnu/libtinfo.so.5
+          echo "Biblioteca instalada e atalho criado com sucesso!"
           
       - name: Opcao Nuclear - Destruir a pasta v35
         run: |
