@@ -32,13 +32,21 @@ jobs:
           mkdir -p $DIR
           cat <<EOF > "$DIR/EmbeddedValues.java"
           package com.psiphon3.psiphonlibrary;
+          import android.content.Context; // ← Adicionei isso pra ele parar de chorar!
           
           public class EmbeddedValues {
-              // As chaves que o compilador chorou pedindo:
+              // --- AS 4 COISAS NOVAS QUE ELE PEDIU AGORA ---
+              public static final String FAQ_URL = "https://daggomo.com/faq";
+              public static final String DATA_COLLECTION_INFO_URL = "https://daggomo.com/privacidade";
+              public static final String CLIENT_VERSION = "1.0 Daggomo";
+              
+              public static void initialize(Context context) {
+                  // O compilador só queria ver esse método existir! Não precisa fazer nada dentro!
+              }
+
+              // --- AS CHAVES DA VEZ PASSADA (Que deram certo!) ---
               public static final boolean IS_PLAY_STORE_BUILD = false;
               public static final String[] HOME_TAB_URL_EXCLUSIONS = new String[0];
-              
-              // O resto das chaves secretas padrão do Psiphon:
               public static final String FILE_BUG_EMAIL_ADDRESS = "suporte@daggomo.com";
               public static final boolean CAN_PROMPT_FOR_RATING = false;
               public static final String UPGRADE_URL_STRING = "";
@@ -66,7 +74,7 @@ jobs:
               public static final boolean DISABLE_TIMEOUTS = false;
           }
           EOF
-          echo "Super Chave Secreta forjada com sucesso!"
+          echo "Super Chave Secreta Atualizada com Sucesso!"
           
       - name: Dar permissao pro Pedreiro
         run: chmod +x gradlew
