@@ -26,25 +26,47 @@ jobs:
           find . -name "values-v35" -type d -exec rm -rf {} +
           echo "PASTA DESTRUIDA COM SUCESSO!"
           
-      - name: Forjar a Chave Secreta (EmbeddedValues)
+      - name: Forjar a SUPER Chave Secreta (EmbeddedValues)
         run: |
           DIR="app/src/main/java/com/psiphon3/psiphonlibrary"
           mkdir -p $DIR
+          cat <<EOF > "$DIR/EmbeddedValues.java"
+          package com.psiphon3.psiphonlibrary;
           
-          # Se o desenvolvedor original deixou um molde (template), a gente usa:
-          if [ -f "$DIR/EmbeddedValues.java.template" ]; then
-            cp "$DIR/EmbeddedValues.java.template" "$DIR/EmbeddedValues.java"
-            echo "Molde encontrado e copiado! 🗝️"
-          else
-            # Se não, a gente cria um arquivo genérico na marra!
-            echo "Criando EmbeddedValues na marra! 🛠️"
-            cat <<EOF > "$DIR/EmbeddedValues.java"
-            package com.psiphon3.psiphonlibrary;
-            public class EmbeddedValues {
-                // Se faltar alguma variavel aqui, o compilador vai nos avisar!
-            }
+          public class EmbeddedValues {
+              // As chaves que o compilador chorou pedindo:
+              public static final boolean IS_PLAY_STORE_BUILD = false;
+              public static final String[] HOME_TAB_URL_EXCLUSIONS = new String[0];
+              
+              // O resto das chaves secretas padrão do Psiphon:
+              public static final String FILE_BUG_EMAIL_ADDRESS = "suporte@daggomo.com";
+              public static final boolean CAN_PROMPT_FOR_RATING = false;
+              public static final String UPGRADE_URL_STRING = "";
+              public static final String[] UPGRADE_URL_STRINGS = new String[0];
+              public static final String UPGRADE_VERSION_FILE_URL_STRING = "";
+              public static final boolean SUPPORTS_SUBSCRIPTIONS = false;
+              public static final String SPONSOR_ID = "DaggomoVPN";
+              public static final boolean EXCLUDE_APPS_BY_DEFAULT = false;
+              public static final String[] DATA_TRANSFER_RATE_EXCLUSIONS = new String[0];
+              public static final boolean SHOW_NETWORK_ALERTS = false;
+              public static final boolean ALWAYS_SHOW_DATA_TRANSFER_RATE = true;
+              public static final boolean SUPPORTS_CUSTOM_SERVER_ENTRIES = true;
+              public static final boolean SHOW_SPLIT_TUNNEL_REGION_HINT = false;
+              public static final boolean ENABLE_BROADCASTS = false;
+              public static final String CLIENT_REGION = "";
+              public static final String AUTHORIZATION_ID = "";
+              public static final boolean EMIT_ANALYTICS = false;
+              public static final int FEEDBACK_LIFESPAN_DAYS = 14;
+              public static final boolean HAS_TOS_URL = false;
+              public static final String TOS_URL = "";
+              public static final boolean HAS_PRIVACY_URL = false;
+              public static final String PRIVACY_URL = "";
+              public static final boolean REQUIRE_INITIAL_AUTHORIZATION = false;
+              public static final String INITIAL_AUTHORIZATION_URL = "";
+              public static final boolean DISABLE_TIMEOUTS = false;
+          }
           EOF
-          fi
+          echo "Super Chave Secreta forjada com sucesso!"
           
       - name: Dar permissao pro Pedreiro
         run: chmod +x gradlew
