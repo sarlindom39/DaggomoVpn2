@@ -19,10 +19,15 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Instalar biblioteca que o NDK 17 precisa
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libtinfo5
+          echo "libtinfo5 instalada com sucesso!"
           
       - name: Opcao Nuclear - Destruir a pasta v35
         run: |
-          echo "Procurando a pasta values-v35 em todo o projeto..."
           find . -name "values-v35" -type d -exec rm -rf {} +
           echo "PASTA DESTRUIDA COM SUCESSO!"
           
@@ -35,7 +40,6 @@ jobs:
           import android.content.Context;
           
           public class EmbeddedValues {
-              // --- AS 15 COISAS NOVAS (Chaves e Listas) ---
               public static final String PROPAGATION_CHANNEL_ID = "0000000000000000";
               public static final String[] EMBEDDED_SERVER_LIST = new String[0];
               public static final String UPGRADE_URLS_JSON = "[]";
@@ -51,19 +55,11 @@ jobs:
               public static final String UPGRADE_SIGNATURE_PUBLIC_KEY = "";
               public static final String GET_NEW_VERSION_URL = "https://daggomo.com/download";
               public static final String GET_NEW_VERSION_EMAIL = "get@daggomo.com";
-
-              public static boolean hasEverBeenSideLoaded(Context context) {
-                  return false; // Diz pro app que ele é original
-              }
-
-              // --- OS 4 BURACOS PREENCHIDOS ANTES ---
+              public static boolean hasEverBeenSideLoaded(Context context) { return false; }
               public static final String FAQ_URL = "https://daggomo.com/faq";
               public static final String DATA_COLLECTION_INFO_URL = "https://daggomo.com/privacidade";
               public static final String CLIENT_VERSION = "1.0 Daggomo";
-              
               public static void initialize(Context context) {}
-
-              // --- AS PRIMEIRAS CHAVES DA PARTE 1 ---
               public static final boolean IS_PLAY_STORE_BUILD = false;
               public static final String[] HOME_TAB_URL_EXCLUSIONS = new String[0];
               public static final String FILE_BUG_EMAIL_ADDRESS = "suporte@daggomo.com";
@@ -93,7 +89,7 @@ jobs:
               public static final boolean DISABLE_TIMEOUTS = false;
           }
           EOF
-          echo "Super Chave Secreta V3 forjada com sucesso!"
+          echo "Super Chave Secreta forjada com sucesso!"
           
       - name: Dar permissao pro Pedreiro
         run: chmod +x gradlew
